@@ -1,5 +1,4 @@
 from typing import Any, Union
-
 import pygame as pg
 
 weight = 0
