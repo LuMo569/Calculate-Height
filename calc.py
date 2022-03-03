@@ -3,15 +3,34 @@ import pygame as pg
 
 weight = 0
 height = 0
+gender = 0
+
+guess1 = 0
+guess2 = 0
+
+pg.font.init()
+font = pg.font.Font(None, 32)
+
+# Text for info and instructions
+text_weight = font.render('Peso:', False, (255, 255, 255))
+text_height = font.render('Altura:', False, (255, 255, 255))
+text_gender = font.render('Género:', False, (255, 255, 255))
+text_instruction1 = font.render('Entrad 1 para chico y 0 para chica,', False, (255, 255, 255))
+text_instruction2 = font.render('entonces su altura y peso.', False, (255, 255, 255))
+text_cycle = font.render('Altura futura:', False, (255, 255, 255))          
+
+screen = pg.display.set_mode((650, 750))
+clock = pg.time.Clock()
+input_box = pg.Rect(100, 100, 140, 32)
+coverup = pg.Rect(650, 350, 100, 40)
 
 
 def main():
     global weight
     global height
-    screen = pg.display.set_mode((640, 480))
-    font = pg.font.Font(None, 32)
-    clock = pg.time.Clock()
-    input_box = pg.Rect(100, 100, 140, 32)
+    global gender
+    global guess1
+    global guess2
     color_inactive = pg.Color('lightskyblue3')
     color_active = pg.Color('dodgerblue2')
     color = color_inactive
@@ -35,11 +54,14 @@ def main():
             if event.type == pg.KEYDOWN:
                 if active:
                     if event.key == pg.K_RETURN:
-                        if int(text) > 120:
+                        if 220 > int(text) > 120:                           # assuming that everything above 120 is height
                             height = text
-                        if int(text) < 120:
+                        if 120 >= int(text) > 35:                           # assuming everything under 120 is weight
                             weight = text
-                        check()
+                        if int(text) == 1:
+                            gender = 'chico'
+                        elif int(text) == 0:
+                            gender = 'chica'
                         text = ''
                     elif event.key == pg.K_BACKSPACE:
                         text = text[:-1]
@@ -56,21 +78,74 @@ def main():
         screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
         # Blit the input_box rect.
         pg.draw.rect(screen, color, input_box, 2)
+        # Blit the instructions
+        screen.blit(text_instruction1, (10, 20))
+        screen.blit(text_instruction2, (10, 50))
+
+        if weight != 0:
+            screen.blit(text_weight, (230, 230))
+            # Turn variable to str to be able to blit
+            number_weight = font.render(str(weight), False, (255, 255, 255))
+            screen.blit(number_weight, (320, 230))
+
+        if height != 0:
+            screen.blit(text_height, (230, 260))
+            # Turn variable to str to be able to blit
+            number_height = font.render(str(height), False, (255, 255, 255))
+            screen.blit(number_height, (320, 260))
+
+        if gender == 'chico':
+            screen.blit(text_gender, (230, 290))
+            kind_gender = font.render(gender, False, (255, 255, 255))
+            screen.blit(kind_gender, (320, 290))
+
+        if gender == 'chica':
+            screen.blit(text_gender, (230, 290))
+            kind_gender = font.render(gender, False, (255, 255, 255))
+            screen.blit(kind_gender, (320, 290))
+
+        algo()
+
+        if guess1 != 0 and gender == 'chico':
+            pg.draw.rect(screen, (30, 30, 30), coverup, 0)                          # cover up value to prevent overlap
+            screen.blit(text_cycle, (230, 350))
+            number_cycle = font.render(str(guess1), False, (255, 255, 255))
+            screen.blit(number_cycle, (400, 350))
+
+        if guess2 != 0 and gender == 'chica':
+            pg.draw.rect(screen, (30, 30, 30), coverup, 0)                          # cover up value to prevent overlap
+            screen.blit(text_cycle, (230, 350))
+            number_cycle = font.render(str(guess2), False, (255, 255, 255))
+            screen.blit(number_cycle, (400, 350))
 
         pg.display.flip()
         clock.tick(30)
 
 
-def check():
-    global height
+def algo():
     global weight
-    if height != 0:
-        print(height)
-    if weight != 0:
-        print(weight)
+    global height
+    global gender
+    global guess1
+    global guess2
 
-# Add algorithm which calculates the corresponding height, it won´t tell the truth, but this isn´t the goal anyway
-# Display values in Gui
+    # Algorithms don´t make sense, they just seem to do so
+    # Algorithm for boys
+    if gender == 'chico' and 20 < int(weight) <= 120 < int(height) < 220:
+        guess1 = int(height)*(int(weight)/(int(weight)-6.5))
+        if guess1 < int(height):
+            guess1 = height + 5
+        guess1 = round(guess1, 2)
+        print(guess1)
+
+    # Algorithm for girls
+    if gender == 'chica' and 20 < int(weight) <= 120 < int(height) < 220:
+        guess2 = int(height)*(int(weight)/(int(weight)-6))
+        if guess2 < int(height):
+            guess2 = height + 5
+        guess2 = round(guess2, 2)
+        print(guess2)
+
 
 if __name__ == '__main__':
     pg.init()

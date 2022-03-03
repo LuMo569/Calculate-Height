@@ -16,7 +16,7 @@ pygame.init()
 # Parameters
 WIDTH, HEIGHT = 750, 750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("App")
+pygame.display.set_caption("aplicación")
 
 # Background
 BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")), (WIDTH, HEIGHT))
@@ -33,16 +33,15 @@ start_Button_calc = Button(275, 450, start_img, 0.8)
 exit_Button = Button(450, 200, exit_img, 0.8)
 
 # Text
-text_clac = myfont.render('Rechner', False, (255, 255, 255))
-text_game = myfont.render('Spiel zum Zeitvertreib', False, (255, 255, 255))
+text_clac = myfont.render('calculadora', False, (255, 255, 255))
+text_game = myfont.render('videojuego', False, (255, 255, 255))
 
 while run:
     WIN.blit(BG, (0, 0))
-    WIN.blit(text_clac, (325, 400))
-    WIN.blit(text_game, (50, 150))
+    WIN.blit(text_clac, (310, 400))
+    WIN.blit(text_game, (140, 150))
 
     if start_Button_game.draw(WIN):
-        print('WORKS')
         os.system("main.py")
 
     if exit_Button.draw(WIN):
@@ -50,7 +49,6 @@ while run:
 
     if start_Button_calc.draw(WIN):
         os.system("calc.py")
-
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

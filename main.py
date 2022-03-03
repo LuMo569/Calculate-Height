@@ -175,8 +175,8 @@ def main():
     def redraw_window():
         WIN.blit(BG, (0, 0))
         # draw text
-        lives_label = main_font.render(f"Lives: {lives}", 1, (255, 255, 255))
-        level_label = main_font.render(f"Level: {level}", 1, (255, 255, 255))
+        lives_label = main_font.render(f"vidas: {lives}", 1, (255, 255, 255))
+        level_label = main_font.render(f"nivel: {level}", 1, (255, 255, 255))
 
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
@@ -187,7 +187,7 @@ def main():
         player.draw(WIN)
 
         if lost:
-            lost_label = lost_font.render("Verloren!!", 1, (255, 255, 255))
+            lost_label = lost_font.render("¡Perdió!", 1, (255, 255, 255))
             WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
 
         pygame.display.update()
@@ -251,7 +251,7 @@ def main_menu():
     run = True
     while run:
         WIN.blit(BG, (0, 0))
-        title_label = title_font.render("Klicke auf die Maus...", 1, (255, 255, 255))
+        title_label = title_font.render("Haga clic en el ratón...", 1, (255, 255, 255))
         WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
         pygame.display.update()
         for event in pygame.event.get():
