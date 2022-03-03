@@ -1,5 +1,7 @@
 # Calculate-Height
 
+------Project still in progress------
+
 ! Run the app.py file !
 
 The package "pygame" is needed.
