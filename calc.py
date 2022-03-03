@@ -70,7 +70,7 @@ def check():
         print(weight)
 
 # Add algorithm which calculates the corresponding height, it won´t tell the truth, but this isn´t the goal anyway
-
+# Display values in Gui
 
 if __name__ == '__main__':
     pg.init()
