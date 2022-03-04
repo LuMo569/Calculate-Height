@@ -96,7 +96,6 @@ def main():
             screen.blit(kind_gender, (320, 290))
 
         guess = algo(weight, height, gender)
-        print(guess)
 
         if gender == 'chico':
             pg.draw.rect(screen, (30, 30, 30), coverup, 0)                          # cover up value to prevent overlap
