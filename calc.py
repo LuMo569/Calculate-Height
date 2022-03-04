@@ -1,13 +1,6 @@
 from typing import Any, Union
 import pygame as pg
 
-weight = 0
-height = 0
-gender = 0
-
-guess1 = 0
-guess2 = 0
-
 pg.font.init()
 font = pg.font.Font(None, 32)
 
@@ -26,11 +19,9 @@ coverup = pg.Rect(650, 350, 100, 40)
 
 
 def main():
-    global weight
-    global height
-    global gender
-    global guess1
-    global guess2
+    weight = 0
+    height = 0
+    gender = 0
     color_inactive = pg.Color('lightskyblue3')
     color_active = pg.Color('dodgerblue2')
     color = color_inactive
@@ -104,45 +95,43 @@ def main():
             kind_gender = font.render(gender, False, (255, 255, 255))
             screen.blit(kind_gender, (320, 290))
 
-        algo()
+        guess = algo(weight, height, gender)
+        print(guess)
 
-        if guess1 != 0 and gender == 'chico':
+        if gender == 'chico':
             pg.draw.rect(screen, (30, 30, 30), coverup, 0)                          # cover up value to prevent overlap
             screen.blit(text_cycle, (230, 350))
-            number_cycle = font.render(str(guess1), False, (255, 255, 255))
+            number_cycle = font.render(str(guess), False, (255, 255, 255))
             screen.blit(number_cycle, (400, 350))
-
-        if guess2 != 0 and gender == 'chica':
+        elif gender == 'chica':
             pg.draw.rect(screen, (30, 30, 30), coverup, 0)                          # cover up value to prevent overlap
             screen.blit(text_cycle, (230, 350))
-            number_cycle = font.render(str(guess2), False, (255, 255, 255))
+            number_cycle = font.render(str(guess), False, (255, 255, 255))
             screen.blit(number_cycle, (400, 350))
 
         pg.display.flip()
         clock.tick(30)
 
 
-def algo():
-    global weight
-    global height
-    global gender
-    global guess1
-    global guess2
-
+def algo(weight, height, gender):
     # Algorithms don´t make sense, they just seem to do so
     # Algorithm for boys
     if gender == 'chico' and 20 < int(weight) <= 120 < int(height) < 220:
-        guess1 = int(height)*(int(weight)/(int(weight)-6.5))
-        if guess1 < int(height):
-            guess1 = height + 5
-        guess1 = round(guess1, 2)
+        guess = int(height)*(int(weight)/(int(weight)-6.5))
+        if guess < int(height):
+            guess = height + 5
+        guess = round(guess, 2)
+        print(guess)
+        return guess
 
     # Algorithm for girls
     if gender == 'chica' and 20 < int(weight) <= 120 < int(height) < 220:
-        guess2 = int(height)*(int(weight)/(int(weight)-6))
-        if guess2 < int(height):
-            guess2 = height + 5
-        guess2 = round(guess2, 2)
+        guess = int(height)*(int(weight)/(int(weight)-6))
+        if guess < int(height):
+            guess = height + 5
+        guess = round(guess, 2)
+        print(guess)
+        return guess
 
 
 if __name__ == '__main__':
