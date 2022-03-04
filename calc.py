@@ -120,7 +120,6 @@ def algo(weight, height, gender):
         if guess < int(height):
             guess = height + 5
         guess = round(guess, 2)
-        print(guess)
         return guess
 
     # Algorithm for girls
@@ -129,7 +128,6 @@ def algo(weight, height, gender):
         if guess < int(height):
             guess = height + 5
         guess = round(guess, 2)
-        print(guess)
         return guess
 
 
